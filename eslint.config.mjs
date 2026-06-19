@@ -16,4 +16,17 @@ export default [
       "no-unused-vars": "warn",
     },
   },
+  {
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      "no-unused-vars": "warn",
+    },
+  },
 ];

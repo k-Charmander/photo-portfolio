@@ -1,0 +1,97 @@
+[
+  {
+    "guid": "smpl-jeju-seongsan",
+    "caption": "제주 #풍경 #일출 성산일출봉 위로 번지던 아침 바다",
+    "dateCreated": "2026-06-12T07:08:00+09:00",
+    "width": 1200,
+    "height": 1500,
+    "sample": "assets/photos/sample/jeju-seongsan.svg",
+    "gps": {
+      "lat": 33.458,
+      "lng": 126.942
+    },
+    "camera": "Apple iPhone 15 Pro"
+  },
+  {
+    "guid": "smpl-jeju-sunset",
+    "caption": "제주 #노을 #sunset 협재 바다를 물들이던 주황빛",
+    "dateCreated": "2026-06-12T19:34:00+09:00",
+    "width": 1600,
+    "height": 900,
+    "sample": "assets/photos/sample/jeju-sunset.svg",
+    "gps": {
+      "lat": 33.394,
+      "lng": 126.24
+    },
+    "camera": "Apple iPhone 15 Pro"
+  },
+  {
+    "guid": "smpl-seoul-night",
+    "caption": "서울 #야경 #nightview 한강 위로 흐르던 도시의 불빛",
+    "dateCreated": "2026-06-14T21:12:00+09:00",
+    "width": 1200,
+    "height": 1600,
+    "sample": "assets/photos/sample/seoul-night.svg",
+    "gps": {
+      "lat": 37.529,
+      "lng": 126.933
+    },
+    "camera": "Apple iPhone 15 Pro"
+  },
+  {
+    "guid": "smpl-seoul-street",
+    "caption": "서울 #거리 을지로 골목의 오후",
+    "dateCreated": "2026-06-15T16:47:00+09:00",
+    "width": 1200,
+    "height": 900,
+    "sample": "assets/photos/sample/seoul-street.svg",
+    "gps": null,
+    "camera": "Apple iPhone 15 Pro"
+  },
+  {
+    "guid": "smpl-busan-coast",
+    "caption": "부산 #풍경 #바다 광안리에서 마주한 한낮의 바다",
+    "dateCreated": "2026-06-16T13:20:00+09:00",
+    "width": 1600,
+    "height": 1000,
+    "sample": "assets/photos/sample/busan-coast.svg",
+    "gps": {
+      "lat": 35.153,
+      "lng": 129.118
+    },
+    "camera": "Apple iPhone 15 Pro"
+  },
+  {
+    "guid": "smpl-busan-food",
+    "caption": "부산 #음식 #foodie 골목 노포의 따뜻한 한 끼",
+    "dateCreated": "2026-06-16T19:05:00+09:00",
+    "width": 1200,
+    "height": 1200,
+    "sample": "assets/photos/sample/busan-food.svg",
+    "gps": null,
+    "camera": "Apple iPhone 15 Pro"
+  },
+  {
+    "guid": "smpl-gangwon-dawn",
+    "caption": "강원 #풍경 안개에 잠긴 능선",
+    "dateCreated": "2026-06-18T05:21:00+09:00",
+    "width": 1500,
+    "height": 1000,
+    "sample": "assets/photos/sample/gangwon-dawn.svg",
+    "gps": {
+      "lat": 37.66,
+      "lng": 128.69
+    },
+    "camera": "Apple iPhone 15 Pro"
+  },
+  {
+    "guid": "smpl-gangwon-portrait",
+    "caption": "강원 #인물 #portrait 햇살 아래의 미소",
+    "dateCreated": "2026-06-18T11:42:00+09:00",
+    "width": 1000,
+    "height": 1400,
+    "sample": "assets/photos/sample/gangwon-portrait.svg",
+    "gps": null,
+    "camera": "Apple iPhone 15 Pro"
+  }
+]
