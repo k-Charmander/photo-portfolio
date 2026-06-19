@@ -50,6 +50,8 @@ npm test                 # 포맷 검사 + 린트(JS/CSS/HTML)
 5. **인스타그램(반자동)** — 매일 10시 워크플로가 게시 초안 Issue를 만들고 GitHub가 메일로
    알립니다. 휴대폰에서 사진을 저장하고 Issue의 캡션을 복사해 직접 공유하세요.
 
+> 전체 흐름은 [docs/WORKFLOW.md](docs/WORKFLOW.md)에 단계별로 정리되어 있습니다.
+
 > 수동 실행: Actions → **Daily photo sync** → Run workflow.
 
 ## 운영 전환 시 (샘플 데이터 정리)
