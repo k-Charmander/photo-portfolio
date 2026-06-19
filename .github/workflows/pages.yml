@@ -23,6 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+        with:
+          # 저장소에 Pages가 미설정이면 워크플로가 자동 활성화(Actions 빌드)
+          enablement: true
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
