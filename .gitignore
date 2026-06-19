@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# Dependencies (필요 시)
+node_modules/
+
+# 파이프라인 산출물 (워크플로 아티팩트로만 보관, 커밋 안 함)
+out/
