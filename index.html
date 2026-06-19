@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="사진 포트폴리오 — 풍경, 인물, 거리 사진 모음" />
-    <title>Photo Portfolio</title>
+    <meta
+      name="description"
+      content="아이폰으로 담은 순간을 지역과 테마별 스토리로 아카이빙하는 사진 저널"
+    />
+    <title>Photofolio — 빛과 순간의 아카이브</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -12,48 +15,70 @@
       <div class="container header-inner">
         <a class="logo" href="#top">PHOTO<span>FOLIO</span></a>
         <nav class="nav">
-          <a href="#gallery">갤러리</a>
+          <a href="#regions">지역</a>
+          <a href="#themes">테마</a>
+          <a href="#archive">아카이브</a>
           <a href="#about">소개</a>
-          <a href="#contact">연락처</a>
         </nav>
       </div>
     </header>
 
     <main id="top">
       <section class="hero">
-        <div class="container">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="container hero-inner reveal">
+          <p class="hero-kicker">PHOTO JOURNAL</p>
           <h1>빛과 순간을 담습니다</h1>
-          <p>풍경 · 인물 · 거리 사진</p>
+          <p class="hero-sub">아이폰으로 기록한 장면을 지역과 테마의 이야기로 엮습니다.</p>
+          <ul class="hero-stats" id="hero-stats"></ul>
+          <a class="hero-cue" href="#regions" aria-label="아래로 스크롤">↓</a>
         </div>
       </section>
 
-      <section id="gallery" class="gallery-section">
+      <section id="regions" class="section">
         <div class="container">
-          <h2 class="section-title">갤러리</h2>
-
-          <div class="filters" id="filters">
-            <button class="filter-btn is-active" data-filter="all">전체</button>
-            <button class="filter-btn" data-filter="landscape">풍경</button>
-            <button class="filter-btn" data-filter="portrait">인물</button>
-            <button class="filter-btn" data-filter="street">거리</button>
+          <div class="section-head reveal">
+            <h2 class="section-title">지역 스토리</h2>
+            <p class="section-desc">발걸음이 머문 곳마다 쌓인 이야기.</p>
           </div>
-
-          <div class="gallery" id="gallery-grid"><!-- JS가 채웁니다 --></div>
+          <div class="story-rail" id="region-stories"></div>
         </div>
       </section>
 
-      <section id="about" class="about-section">
+      <section id="themes" class="section">
         <div class="container">
+          <div class="section-head reveal">
+            <h2 class="section-title">테마 스토리</h2>
+            <p class="section-desc">풍경, 노을, 거리… 결이 닮은 순간들.</p>
+          </div>
+          <div class="theme-grid" id="theme-stories"></div>
+        </div>
+      </section>
+
+      <section id="archive" class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <h2 class="section-title">아카이브</h2>
+            <p class="section-desc">기록된 모든 순간을 시간 순으로.</p>
+          </div>
+          <div class="filters" id="archive-filters"></div>
+          <div class="archive-grid" id="archive-grid"></div>
+          <p class="empty-state" id="empty-state" hidden>아직 기록된 사진이 없습니다.</p>
+        </div>
+      </section>
+
+      <section id="about" class="section about-section">
+        <div class="container reveal">
           <h2 class="section-title">소개</h2>
           <p>
-            안녕하세요. 일상 속에서 마주치는 빛과 순간을 기록하는 사진가입니다. 풍경과 인물, 거리의
-            풍경을 주로 담습니다.
+            일상 속에서 마주치는 빛과 순간을 기록합니다. 아이폰 공유 앨범에 담은 사진이 매일 아침
+            지역과 테마로 정리되어 이곳에 아카이빙됩니다.
           </p>
         </div>
       </section>
 
-      <section id="contact" class="contact-section">
-        <div class="container">
+      <section id="contact" class="section contact-section">
+        <div class="container reveal">
           <h2 class="section-title">연락처</h2>
           <p>협업 및 문의: <a href="mailto:hello@example.com">hello@example.com</a></p>
         </div>
@@ -62,15 +87,23 @@
 
     <footer class="site-footer">
       <div class="container">
-        <p>&copy; <span id="year"></span> Photo Portfolio. All rights reserved.</p>
+        <p>&copy; <span id="year"></span> Photofolio. All rights reserved.</p>
       </div>
     </footer>
 
-    <!-- 라이트박스 -->
-    <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
       <button class="lightbox-close" id="lightbox-close" aria-label="닫기">&times;</button>
-      <img class="lightbox-img" id="lightbox-img" alt="" />
-      <p class="lightbox-caption" id="lightbox-caption"></p>
+      <div class="lightbox-panel">
+        <div class="lightbox-media">
+          <img class="lightbox-img" id="lightbox-img" alt="" />
+        </div>
+        <div class="lightbox-info">
+          <div class="lightbox-meta" id="lightbox-meta"></div>
+          <p class="lightbox-story" id="lightbox-story"></p>
+          <div class="lightbox-tags" id="lightbox-tags"></div>
+          <span class="badge" id="lightbox-status"></span>
+        </div>
+      </div>
     </div>
 
     <script src="js/main.js"></script>

@@ -1,2 +1,6 @@
 node_modules
 assets
+out
+data/photos.json
+data/state.json
+data/sample
