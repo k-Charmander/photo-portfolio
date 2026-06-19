@@ -161,6 +161,10 @@ async function main() {
   if (newRecords.length > 0) {
     const issue = buildIssue(newRecords);
     console.log(`\n[notify] 게시 알림 초안\n--- ${issue.title} ---\n${issue.body}`);
+    if (!opts.dryRun) {
+      await mkdir("out", { recursive: true });
+      await writeFile("out/notify.json", JSON.stringify(issue, null, 2), "utf8");
+    }
   }
 }
 
