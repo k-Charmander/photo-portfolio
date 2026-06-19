@@ -28,9 +28,23 @@ photo-portfolio/
 별도 빌드 과정이 없습니다. 파일을 브라우저로 열거나 간단한 정적 서버를 사용하세요.
 
 ```bash
-# Python 3
+# 방법 1) npm (포맷터·린터 포함)
+npm install
+npm run dev   # http://localhost:8000 접속
+
+# 방법 2) Python 3 (도구 없이 빠르게)
 python3 -m http.server 8000
 # 이후 http://localhost:8000 접속
+```
+
+## 개발 도구
+
+페이지 개선 시 변경을 검증할 수 있도록 포맷터·린터가 구성되어 있습니다.
+
+```bash
+npm run format   # Prettier 포맷 정리
+npm run lint     # ESLint(JS) + Stylelint(CSS) + html-validate(HTML)
+npm test         # 포맷 검사 + 린트
 ```
 
 ## 사진 교체 방법

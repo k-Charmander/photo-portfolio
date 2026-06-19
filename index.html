@@ -1,78 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="사진 포트폴리오 — 풍경, 인물, 거리 사진 모음" />
-  <title>Photo Portfolio</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="logo" href="#top">PHOTO<span>FOLIO</span></a>
-      <nav class="nav">
-        <a href="#gallery">갤러리</a>
-        <a href="#about">소개</a>
-        <a href="#contact">연락처</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero">
-      <div class="container">
-        <h1>빛과 순간을 담습니다</h1>
-        <p>풍경 · 인물 · 거리 사진</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="사진 포트폴리오 — 풍경, 인물, 거리 사진 모음" />
+    <title>Photo Portfolio</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="#top">PHOTO<span>FOLIO</span></a>
+        <nav class="nav">
+          <a href="#gallery">갤러리</a>
+          <a href="#about">소개</a>
+          <a href="#contact">연락처</a>
+        </nav>
       </div>
-    </section>
+    </header>
 
-    <section id="gallery" class="gallery-section">
-      <div class="container">
-        <h2 class="section-title">갤러리</h2>
-
-        <div class="filters" id="filters">
-          <button class="filter-btn is-active" data-filter="all">전체</button>
-          <button class="filter-btn" data-filter="landscape">풍경</button>
-          <button class="filter-btn" data-filter="portrait">인물</button>
-          <button class="filter-btn" data-filter="street">거리</button>
+    <main id="top">
+      <section class="hero">
+        <div class="container">
+          <h1>빛과 순간을 담습니다</h1>
+          <p>풍경 · 인물 · 거리 사진</p>
         </div>
+      </section>
 
-        <div class="gallery" id="gallery-grid"><!-- JS가 채웁니다 --></div>
-      </div>
-    </section>
+      <section id="gallery" class="gallery-section">
+        <div class="container">
+          <h2 class="section-title">갤러리</h2>
 
-    <section id="about" class="about-section">
+          <div class="filters" id="filters">
+            <button class="filter-btn is-active" data-filter="all">전체</button>
+            <button class="filter-btn" data-filter="landscape">풍경</button>
+            <button class="filter-btn" data-filter="portrait">인물</button>
+            <button class="filter-btn" data-filter="street">거리</button>
+          </div>
+
+          <div class="gallery" id="gallery-grid"><!-- JS가 채웁니다 --></div>
+        </div>
+      </section>
+
+      <section id="about" class="about-section">
+        <div class="container">
+          <h2 class="section-title">소개</h2>
+          <p>
+            안녕하세요. 일상 속에서 마주치는 빛과 순간을 기록하는 사진가입니다. 풍경과 인물, 거리의
+            풍경을 주로 담습니다.
+          </p>
+        </div>
+      </section>
+
+      <section id="contact" class="contact-section">
+        <div class="container">
+          <h2 class="section-title">연락처</h2>
+          <p>협업 및 문의: <a href="mailto:hello@example.com">hello@example.com</a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
       <div class="container">
-        <h2 class="section-title">소개</h2>
-        <p>
-          안녕하세요. 일상 속에서 마주치는 빛과 순간을 기록하는 사진가입니다.
-          풍경과 인물, 거리의 풍경을 주로 담습니다.
-        </p>
+        <p>&copy; <span id="year"></span> Photo Portfolio. All rights reserved.</p>
       </div>
-    </section>
+    </footer>
 
-    <section id="contact" class="contact-section">
-      <div class="container">
-        <h2 class="section-title">연락처</h2>
-        <p>협업 및 문의: <a href="mailto:hello@example.com">hello@example.com</a></p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; <span id="year"></span> Photo Portfolio. All rights reserved.</p>
+    <!-- 라이트박스 -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox-close" id="lightbox-close" aria-label="닫기">&times;</button>
+      <img class="lightbox-img" id="lightbox-img" alt="" />
+      <p class="lightbox-caption" id="lightbox-caption"></p>
     </div>
-  </footer>
 
-  <!-- 라이트박스 -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="lightbox-close" id="lightbox-close" aria-label="닫기">&times;</button>
-    <img class="lightbox-img" id="lightbox-img" alt="" />
-    <p class="lightbox-caption" id="lightbox-caption"></p>
-  </div>
-
-  <script src="js/main.js"></script>
-</body>
+    <script src="js/main.js"></script>
+  </body>
 </html>
