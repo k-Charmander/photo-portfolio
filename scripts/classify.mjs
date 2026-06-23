@@ -5,6 +5,7 @@ export function deriveRegion({ gps, regionHint }) {
   if (gps && typeof gps.lat === "number" && typeof gps.lng === "number") {
     const hit = regions.find(
       (r) =>
+        r.bbox &&
         gps.lat >= r.bbox.minLat &&
         gps.lat <= r.bbox.maxLat &&
         gps.lng >= r.bbox.minLng &&

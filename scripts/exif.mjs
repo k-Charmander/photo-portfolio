@@ -1,4 +1,4 @@
-// EXIF 추출 (best-effort). iCloud 공유앨범은 보통 EXIF/GPS를 제거하므로 null 허용.
+// EXIF 추출 (best-effort). EXIF가 없으면 null 허용.
 import exifr from "exifr";
 
 export async function readExif(input) {
@@ -12,13 +12,31 @@ export async function readExif(input) {
         : null;
     const camera = [data.Make, data.Model].filter(Boolean).join(" ").trim() || null;
     return {
-      takenAt: takenAt ? new Date(takenAt).toISOString() : null,
+      takenAt: toWallClockIso(takenAt),
       gps,
       camera,
     };
   } catch {
     return empty();
   }
+}
+
+// EXIF 촬영시각은 타임존이 없는 '현지 벽시계'다. 러너 타임존과 무관하게 벽시계 그대로
+// UTC 표기(…Z)로 보존한다 → timeOfDay가 getUTCHours로 현지 시각을 읽는다.
+function toWallClockIso(value) {
+  if (!value) return null;
+  const d = value instanceof Date ? value : new Date(value);
+  if (isNaN(d.getTime())) return null;
+  return new Date(
+    Date.UTC(
+      d.getFullYear(),
+      d.getMonth(),
+      d.getDate(),
+      d.getHours(),
+      d.getMinutes(),
+      d.getSeconds(),
+    ),
+  ).toISOString();
 }
 
 function empty() {
