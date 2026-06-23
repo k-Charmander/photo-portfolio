@@ -1,7 +1,18 @@
-// Photofolio — 데이터 기반 갤러리 / 스토리 / 라이트박스 (브라우저 전역 스크립트)
-// data/photos.json 을 읽어 지역·테마 스토리와 아카이브를 렌더링한다.
+// Photofolio — data/photos.json을 읽어 지역 컬러블록 / 테마 타일 / 메이슨리 아카이브 렌더링.
+// 브라우저 전역 스크립트 (ESLint sourceType: "script").
 (function () {
   "use strict";
+
+  // 파스텔 컬러블록 팔레트 (디자인 시스템) — 지역에 순서대로 결정론 배정.
+  var BLOCKS = [
+    { bg: "#dceeb1", dark: false },
+    { bg: "#c5b0f4", dark: false },
+    { bg: "#c8e6cd", dark: false },
+    { bg: "#f4ecd6", dark: false },
+    { bg: "#efd4d4", dark: false },
+    { bg: "#f3c9b6", dark: false },
+    { bg: "#1f1d3d", dark: true },
+  ];
 
   var state = { photos: [], byId: {}, regions: [], themes: [], filter: { type: "all", value: "" } };
 
@@ -14,7 +25,7 @@
     empty: document.getElementById("empty-state"),
     lightbox: document.getElementById("lightbox"),
     lbImg: document.getElementById("lightbox-img"),
-    lbMeta: document.getElementById("lightbox-meta"),
+    lbEyebrow: document.getElementById("lightbox-eyebrow"),
     lbStory: document.getElementById("lightbox-story"),
     lbTags: document.getElementById("lightbox-tags"),
     lbStatus: document.getElementById("lightbox-status"),
@@ -50,30 +61,44 @@
     ];
     el.heroStats.innerHTML = stats
       .map(function (s) {
-        return "<li><strong>" + s.n + "</strong><span>" + s.label + "</span></li>";
+        return "<li><strong>" + s.n + '</strong><span class="caption">' + s.label + "</span></li>";
       })
       .join("");
   }
 
   function renderRegionStories() {
     el.regionStories.innerHTML = state.regions
-      .map(function (r) {
-        var cover = photosOf(r.photoIds)[0];
-        if (!cover) return "";
+      .map(function (r, i) {
+        var block = BLOCKS[i % BLOCKS.length];
+        var cards = photosOf(r.photoIds)
+          .map(function (p) {
+            return (
+              '<figure class="ph" data-id="' +
+              escapeHtml(p.id) +
+              '"><img src="' +
+              escapeHtml(p.src) +
+              '" alt="' +
+              escapeHtml(p.caption || r.label) +
+              '" loading="lazy" /></figure>'
+            );
+          })
+          .join("");
         return (
-          '<div class="story-card" data-type="region" data-value="' +
-          escapeHtml(r.key) +
+          '<section class="region-block' +
+          (block.dark ? " region-block-dark" : "") +
+          '" style="background:' +
+          block.bg +
           '">' +
-          '<img src="' +
-          escapeHtml(cover.src) +
-          '" alt="' +
+          '<div class="region-block-head"><div><p class="eyebrow">REGION</p>' +
+          '<h3 class="headline">' +
           escapeHtml(r.label) +
-          '" loading="lazy" />' +
-          '<div class="overlay"><h3>' +
-          escapeHtml(r.label) +
-          "</h3><p>" +
+          "</h3></div>" +
+          '<p class="caption">' +
           r.photoIds.length +
-          "장의 기록</p></div></div>"
+          " PHOTOS</p></div>" +
+          '<div class="region-photos">' +
+          cards +
+          "</div></section>"
         );
       })
       .join("");
@@ -82,22 +107,14 @@
   function renderThemeStories() {
     el.themeStories.innerHTML = state.themes
       .map(function (t) {
-        var cover = photosOf(t.photoIds)[0];
-        if (!cover) return "";
         return (
           '<div class="theme-card" data-type="theme" data-value="' +
           escapeHtml(t.key) +
-          '">' +
-          '<img src="' +
-          escapeHtml(cover.src) +
-          '" alt="' +
-          escapeHtml(t.label) +
-          '" loading="lazy" />' +
-          '<div class="label">' +
-          escapeHtml(t.label) +
-          "<small>" +
+          '"><span class="num">' +
           t.photoIds.length +
-          "장</small></div></div>"
+          ' PHOTOS</span><span class="name">' +
+          escapeHtml(t.label) +
+          "</span></div>"
         );
       })
       .join("");
@@ -131,15 +148,17 @@
 
   function filteredPhotos() {
     var f = state.filter;
-    var list = state.photos.filter(function (p) {
-      if (f.type === "all") return true;
-      if (f.type === "region") return p.region === f.value;
-      if (f.type === "theme") return p.theme === f.value;
-      return true;
-    });
-    return list.slice().sort(function (a, b) {
-      return new Date(b.takenAt) - new Date(a.takenAt);
-    });
+    return state.photos
+      .filter(function (p) {
+        if (f.type === "all") return true;
+        if (f.type === "region") return p.region === f.value;
+        if (f.type === "theme") return p.theme === f.value;
+        return true;
+      })
+      .slice()
+      .sort(function (a, b) {
+        return new Date(b.takenAt) - new Date(a.takenAt);
+      });
   }
 
   function renderGrid() {
@@ -150,20 +169,16 @@
         return (
           '<article class="photo-card" data-id="' +
           escapeHtml(p.id) +
-          '">' +
-          '<div class="thumb"><img src="' +
+          '"><div class="frame"><img src="' +
           escapeHtml(p.src) +
           '" alt="' +
           escapeHtml(p.caption || p.theme) +
-          '" loading="lazy" />' +
-          '<div class="pin"><span class="chip">' +
+          '" loading="lazy" /></div>' +
+          '<div class="meta"><p class="eyebrow">' +
           escapeHtml(p.region) +
-          '</span><span class="chip accent">' +
+          " · " +
           escapeHtml(p.theme) +
-          "</span></div></div>" +
-          '<div class="body"><p class="date">' +
-          formatDate(p.takenAt) +
-          '</p><p class="caption">' +
+          '</p><p class="cap">' +
           escapeHtml(p.caption || p.story) +
           "</p></div></article>"
         );
@@ -186,14 +201,7 @@
     if (!p) return;
     el.lbImg.src = p.src;
     el.lbImg.alt = p.caption || p.theme;
-    el.lbMeta.innerHTML =
-      '<span class="chip">' +
-      escapeHtml(formatDate(p.takenAt)) +
-      '</span><span class="chip">' +
-      escapeHtml(p.region) +
-      '</span><span class="chip accent">' +
-      escapeHtml(p.theme) +
-      "</span>";
+    el.lbEyebrow.textContent = formatDate(p.takenAt) + " · " + p.region + " · " + p.theme;
     el.lbStory.textContent = p.story || p.caption || "";
     el.lbTags.innerHTML = (p.hashtags || [])
       .map(function (h) {
@@ -203,11 +211,7 @@
     var posted = p.instagram && p.instagram.posted;
     var prepared = p.instagram && p.instagram.prepared;
     el.lbStatus.className = "badge " + (posted ? "posted" : prepared ? "pending" : "");
-    el.lbStatus.textContent = posted
-      ? "인스타그램 게시 완료"
-      : prepared
-        ? "게시 대기 중"
-        : "준비 전";
+    el.lbStatus.textContent = posted ? "게시 완료" : prepared ? "게시 대기 중" : "준비 전";
     el.lightbox.classList.add("is-open");
     el.lightbox.setAttribute("aria-hidden", "false");
     updateUrl(id);
@@ -253,7 +257,7 @@
           }
         });
       },
-      { threshold: 0.12 },
+      { threshold: 0.1 },
     );
     document.querySelectorAll(".reveal").forEach(function (n) {
       io.observe(n);
@@ -261,12 +265,19 @@
   }
 
   function bindEvents() {
-    document.getElementById("regions").addEventListener("click", onStoryClick);
-    document.getElementById("themes").addEventListener("click", onStoryClick);
+    el.regionStories.addEventListener("click", function (e) {
+      var ph = e.target.closest(".ph");
+      if (ph) openLightbox(ph.dataset.id);
+    });
+    el.themeStories.addEventListener("click", function (e) {
+      var card = e.target.closest(".theme-card");
+      if (!card) return;
+      setFilter(card.dataset.type, card.dataset.value);
+      document.getElementById("archive").scrollIntoView({ behavior: "smooth" });
+    });
     el.filters.addEventListener("click", function (e) {
       var btn = e.target.closest(".filter-btn");
-      if (!btn) return;
-      setFilter(btn.dataset.type, btn.dataset.value);
+      if (btn) setFilter(btn.dataset.type, btn.dataset.value);
     });
     el.grid.addEventListener("click", function (e) {
       var card = e.target.closest(".photo-card");
@@ -279,13 +290,6 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") closeLightbox();
     });
-  }
-
-  function onStoryClick(e) {
-    var card = e.target.closest("[data-type]");
-    if (!card) return;
-    setFilter(card.dataset.type, card.dataset.value);
-    document.getElementById("archive").scrollIntoView({ behavior: "smooth" });
   }
 
   function render() {
