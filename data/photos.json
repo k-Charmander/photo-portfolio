@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T14:32:06.151Z",
+  "generatedAt": "2026-06-23T15:13:36.496Z",
   "photos": [
     {
       "id": "smpl-gangwon-portrait",
@@ -239,6 +239,32 @@
         "prepared": true,
         "posted": false
       }
+    },
+    {
+      "id": "11Zd25EwvujPGaiUaKn9ScWUT28SsTelH",
+      "src": "assets/photos/11Zd25EwvujPGaiUaKn9ScWUT28SsTelH.JPG",
+      "width": 4928,
+      "height": 3264,
+      "takenAt": "2018-10-06T20:30:50.000Z",
+      "addedAt": "2026-06-23T15:13:36.488Z",
+      "region": "미상",
+      "theme": "인물",
+      "timeOfDay": "새벽",
+      "caption": "유럽 테스트사진",
+      "story": "2018년 10월 6일, 어딘가에서 마주한 인물의 순간. 유럽 테스트사진.",
+      "hashtags": [
+        "#사진",
+        "#photography",
+        "#일상기록",
+        "#인물",
+        "#portrait"
+      ],
+      "gps": null,
+      "camera": "RICOH IMAGING COMPANY, LTD. GR II",
+      "instagram": {
+        "prepared": true,
+        "posted": false
+      }
     }
   ],
   "regions": [
@@ -273,6 +299,13 @@
         "smpl-jeju-sunset",
         "smpl-jeju-seongsan"
       ]
+    },
+    {
+      "key": "미상",
+      "label": "미상",
+      "photoIds": [
+        "11Zd25EwvujPGaiUaKn9ScWUT28SsTelH"
+      ]
     }
   ],
   "themes": [
@@ -280,7 +313,8 @@
       "key": "인물",
       "label": "인물",
       "photoIds": [
-        "smpl-gangwon-portrait"
+        "smpl-gangwon-portrait",
+        "11Zd25EwvujPGaiUaKn9ScWUT28SsTelH"
       ]
     },
     {
