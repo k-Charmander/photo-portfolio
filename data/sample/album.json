@@ -10,7 +10,8 @@
       "lat": 33.458,
       "lng": 126.942
     },
-    "camera": "Apple iPhone 15 Pro"
+    "camera": "Apple iPhone 15 Pro",
+    "filename": "제주_풍경_성산일출봉 위로 번지던 아침 바다.jpg"
   },
   {
     "guid": "smpl-jeju-sunset",
@@ -23,7 +24,8 @@
       "lat": 33.394,
       "lng": 126.24
     },
-    "camera": "Apple iPhone 15 Pro"
+    "camera": "Apple iPhone 15 Pro",
+    "filename": "제주_노을_협재 바다를 물들이던 주황빛.jpg"
   },
   {
     "guid": "smpl-seoul-night",
@@ -36,7 +38,8 @@
       "lat": 37.529,
       "lng": 126.933
     },
-    "camera": "Apple iPhone 15 Pro"
+    "camera": "Apple iPhone 15 Pro",
+    "filename": "서울_야경_한강 위로 흐르던 도시의 불빛.jpg"
   },
   {
     "guid": "smpl-seoul-street",
@@ -46,7 +49,8 @@
     "height": 900,
     "sample": "assets/photos/sample/seoul-street.svg",
     "gps": null,
-    "camera": "Apple iPhone 15 Pro"
+    "camera": "Apple iPhone 15 Pro",
+    "filename": "서울_거리_을지로 골목의 오후.jpg"
   },
   {
     "guid": "smpl-busan-coast",
@@ -59,7 +63,8 @@
       "lat": 35.153,
       "lng": 129.118
     },
-    "camera": "Apple iPhone 15 Pro"
+    "camera": "Apple iPhone 15 Pro",
+    "filename": "부산_풍경_광안리에서 마주한 한낮의 바다.jpg"
   },
   {
     "guid": "smpl-busan-food",
@@ -69,7 +74,8 @@
     "height": 1200,
     "sample": "assets/photos/sample/busan-food.svg",
     "gps": null,
-    "camera": "Apple iPhone 15 Pro"
+    "camera": "Apple iPhone 15 Pro",
+    "filename": "부산_음식_골목 노포의 따뜻한 한 끼.jpg"
   },
   {
     "guid": "smpl-gangwon-dawn",
@@ -82,7 +88,8 @@
       "lat": 37.66,
       "lng": 128.69
     },
-    "camera": "Apple iPhone 15 Pro"
+    "camera": "Apple iPhone 15 Pro",
+    "filename": "강원_풍경_안개에 잠긴 능선.jpg"
   },
   {
     "guid": "smpl-gangwon-portrait",
@@ -92,6 +99,7 @@
     "height": 1400,
     "sample": "assets/photos/sample/gangwon-portrait.svg",
     "gps": null,
-    "camera": "Apple iPhone 15 Pro"
+    "camera": "Apple iPhone 15 Pro",
+    "filename": "강원_인물_햇살 아래의 미소.jpg"
   }
 ]

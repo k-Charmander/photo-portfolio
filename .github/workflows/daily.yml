@@ -29,7 +29,8 @@ jobs:
 
       - name: Run pipeline
         env:
-          ICLOUD_ALBUM_TOKEN: ${{ secrets.ICLOUD_ALBUM_TOKEN }}
+          GDRIVE_SA_KEY: ${{ secrets.GDRIVE_SA_KEY }}
+          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
         run: npm run pipeline
 
       - name: Commit updated photos & data
