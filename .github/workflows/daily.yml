@@ -1,3 +1,4 @@
+# Google Drive 폴더 → 파이프라인 → 사이트/인스타 자동화 (수동 실행 가능)
 name: Daily photo sync
 
 on:
@@ -5,6 +6,11 @@ on:
     # 01:00 UTC = 10:00 KST (한국은 DST 없음 → 연중 고정)
     - cron: "0 1 * * *"
   workflow_dispatch:
+    inputs:
+      reason:
+        description: "수동 실행 사유 (선택)"
+        required: false
+        default: "manual"
 
 permissions:
   contents: write
