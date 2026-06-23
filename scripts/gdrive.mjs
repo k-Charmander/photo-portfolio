@@ -67,15 +67,15 @@ async function getToken() {
   return json.access_token;
 }
 
-// EXIF 스타일 시각("2026:06:12 07:08:00", 타임존 없음)을 KST 기준 ISO(UTC)로 변환.
+// EXIF 스타일 시각("2026:06:12 07:08:00", 타임존 없음)을 '벽시계 그대로' ISO(…Z)로 표기.
+// 현지 시각을 보존하기 위해 타임존 변환을 하지 않는다(timeOfDay가 getUTCHours로 읽음).
 function exifTimeToIso(t) {
   const m = /^(\d{4}):(\d{2}):(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/.exec(String(t));
   if (!m) {
     const d = new Date(t);
     return isNaN(d.getTime()) ? null : d.toISOString();
   }
-  const utcMs = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]);
-  return new Date(utcMs - 9 * 3600 * 1000).toISOString();
+  return new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6])).toISOString();
 }
 
 // 폴더의 이미지 파일을 정규화된 아이템 배열로 반환.

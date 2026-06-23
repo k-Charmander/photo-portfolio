@@ -54,6 +54,43 @@ export const regions = [
     tags: ["#경주", "#gyeongju"],
     bbox: { minLat: 35.7, maxLat: 36.0, minLng: 129.0, maxLng: 129.4 },
   },
+  // 해외 — GPS bbox 없이 파일명 별칭으로만 인식.
+  {
+    key: "도쿄",
+    label: "도쿄",
+    aliases: ["도쿄", "일본", "tokyo", "japan"],
+    tags: ["#도쿄", "#tokyo", "#일본"],
+  },
+  {
+    key: "뉴욕",
+    label: "뉴욕",
+    aliases: ["뉴욕", "미국", "newyork", "usa"],
+    tags: ["#뉴욕", "#newyork", "#미국"],
+  },
+  {
+    key: "파리",
+    label: "파리",
+    aliases: ["파리", "paris"],
+    tags: ["#파리", "#paris"],
+  },
+  {
+    key: "런던",
+    label: "런던",
+    aliases: ["런던", "london"],
+    tags: ["#런던", "#london"],
+  },
+  {
+    key: "유럽",
+    label: "유럽",
+    aliases: ["유럽", "europe"],
+    tags: ["#유럽", "#europe"],
+  },
+  {
+    key: "해외",
+    label: "해외",
+    aliases: ["해외", "overseas", "abroad", "travel"],
+    tags: ["#해외", "#travel"],
+  },
 ];
 
 // 테마 — 라벨/키워드 매칭. 더 구체적인 테마(노을/야경)를 풍경보다 앞에 둔다.
@@ -103,9 +140,10 @@ export const defaultTheme = "일상";
 // 스토리에서 미상 지역은 자연스럽게 치환
 export const unknownRegionText = "어딘가";
 
-// 시간대 구간 (KST 기준, 시 단위). 러너 타임존과 무관하게 한국 시각으로 계산.
+// 시간대 구간 — 사진의 '현지 벽시계' 시각 기준.
+// takenAt은 벽시계 시각을 UTC로 표기(…Z)하므로 getUTCHours()가 곧 촬영지 현지 시각이다.
 export function timeOfDay(date) {
-  const h = (new Date(date).getUTCHours() + 9) % 24;
+  const h = new Date(date).getUTCHours();
   if (h >= 4 && h < 6) return "새벽";
   if (h >= 6 && h < 11) return "아침";
   if (h >= 11 && h < 16) return "낮";
