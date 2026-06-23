@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b1d22"/>
+      <stop offset="1" stop-color="#4a5560"/>
+    </linearGradient>
+    <radialGradient id="v" cx="0.5" cy="0.42" r="0.78">
+      <stop offset="0.5" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#g)"/>
+  <rect width="1200" height="900" fill="url(#v)"/>
+  <text x="600" y="450" text-anchor="middle" font-family="Helvetica Neue, Segoe UI, sans-serif" font-weight="700" font-size="144" fill="#ffffff" fill-opacity="0.92">서울</text>
+  <text x="600" y="550.8" text-anchor="middle" font-family="Helvetica Neue, Segoe UI, sans-serif" font-size="40" letter-spacing="8" fill="#e4b363">거리</text>
+</svg>

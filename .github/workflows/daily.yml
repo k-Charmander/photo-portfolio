@@ -1,0 +1,75 @@
+# Google Drive 폴더 → 파이프라인 → 사이트/인스타 자동화 (수동 실행 가능)
+name: Daily photo sync
+
+on:
+  schedule:
+    # 01:00 UTC = 10:00 KST (한국은 DST 없음 → 연중 고정)
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "수동 실행 사유 (선택)"
+        required: false
+        default: "manual"
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: daily-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run pipeline
+        env:
+          GDRIVE_SA_KEY: ${{ secrets.GDRIVE_SA_KEY }}
+          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+        run: npm run pipeline
+
+      - name: Commit updated photos & data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/photos data/photos.json
+          if git diff --cached --quiet; then
+            echo "변경 없음 — 커밋 건너뜀"
+          else
+            git commit -m "chore: 사진 동기화 ($(date -u +%Y-%m-%d))"
+            git push
+          fi
+
+      - name: Upload Instagram packages (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: instagram-packages
+          path: out/instagram
+          if-no-files-found: ignore
+
+      - name: Notify via GitHub Issue
+        if: hashFiles('out/notify.json') != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const { title, body } = JSON.parse(fs.readFileSync("out/notify.json", "utf8"));
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ["instagram"],
+            });
