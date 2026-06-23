@@ -49,3 +49,9 @@ docs/FILENAME_CONVENTION.md  # Drive 파일명 규칙
 - SessionStart 훅(`.claude/hooks/session-start.sh`)이 매 세션마다 의존성 설치 +
   프리뷰 서버 기동을 처리한다.
 - 자동화/운영 설정은 README.md 의 "자동화 설정" 참고.
+
+## 다음 작업 (TODO)
+
+- **디자인을 핀터레스트 스타일로 재작업** 예정 (폰트·레이아웃 포함). 상세·방향은
+  [docs/DESIGN_TODO.md](docs/DESIGN_TODO.md) 참고. 현재는 Figma 라이트/파스텔 컬러블록
+  시스템(docs/DESIGN.md).
