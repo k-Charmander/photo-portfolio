@@ -1,14 +1,16 @@
 // 파이프라인 오케스트레이터.
-//   node scripts/pipeline.mjs            실제 iCloud 앨범에서 수집 (env ICLOUD_ALBUM_TOKEN)
+//   node scripts/pipeline.mjs            Google Drive 폴더에서 수집
+//                                        (env GDRIVE_SA_KEY, GDRIVE_FOLDER_ID)
 //   node scripts/pipeline.mjs --sample   data/sample/album.json 으로 오프라인 실행
 //   node scripts/pipeline.mjs --dry-run  파일을 쓰지 않고 결과만 출력
 //   node scripts/pipeline.mjs --limit 3  이번 실행에서 처리할 신규 사진 수 제한
 import { readFile, mkdir, writeFile } from "node:fs/promises";
-import { join, extname } from "node:path";
+import { join } from "node:path";
 import { paths, timeOfDay } from "./config.mjs";
-import { fetchAlbum } from "./icloud.mjs";
+import { fetchAlbum, downloadFile } from "./gdrive.mjs";
 import { readExif } from "./exif.mjs";
 import { parseCaption } from "./caption.mjs";
+import { parseFilename } from "./filename.mjs";
 import { deriveRegion, deriveTheme } from "./classify.mjs";
 import { generateStory } from "./story.mjs";
 import { buildHashtags } from "./hashtags.mjs";
@@ -32,6 +34,7 @@ async function getAlbumItems(opts) {
     const items = JSON.parse(raw);
     return items.map((it) => ({
       guid: it.guid,
+      filename: it.filename || null,
       caption: it.caption || "",
       dateCreated: it.dateCreated || null,
       width: it.width || null,
@@ -41,36 +44,33 @@ async function getAlbumItems(opts) {
       imageSource: { type: "local", value: it.sample },
     }));
   }
-  const token = process.env.ICLOUD_ALBUM_TOKEN;
-  if (!token) throw new Error("ICLOUD_ALBUM_TOKEN 환경변수가 필요합니다 (또는 --sample 사용).");
-  return fetchAlbum(token);
+  return fetchAlbum();
 }
 
-// 실제 모드: URL에서 이미지를 받아 assets/photos/<guid>.jpg 로 저장하고 src/버퍼 반환.
+// 실제 모드: Google Drive에서 받아 assets/photos/<guid>.<ext> 로 저장하고 src/버퍼 반환.
 async function resolveImage(item, opts) {
-  if (item.imageSource && item.imageSource.type === "local") {
-    const path = item.imageSource.value;
+  const source = item.imageSource || {};
+
+  if (source.type === "local") {
     let buffer = null;
     try {
-      buffer = await readFile(path);
+      buffer = await readFile(source.value);
     } catch {
       buffer = null;
     }
-    return { src: path, localPath: path, buffer };
+    return { src: source.value, localPath: source.value, buffer };
   }
-  if (!item.imageSource || !item.imageSource.value) {
-    return { src: null, localPath: null, buffer: null };
-  }
-  const res = await fetch(item.imageSource.value);
-  if (!res.ok) throw new Error(`이미지 다운로드 실패: HTTP ${res.status}`);
-  const buffer = Buffer.from(await res.arrayBuffer());
-  const ext = extname(new URL(item.imageSource.value).pathname) || ".jpg";
-  const src = join(paths.photosDir, `${item.guid}${ext}`);
-  if (!opts.dryRun) {
+
+  if (source.type === "drive") {
+    const src = join(paths.photosDir, `${item.guid}${source.ext || ".jpg"}`);
+    if (opts.dryRun) return { src: src, localPath: null, buffer: null };
+    const buffer = await downloadFile(source.fileId);
     await mkdir(paths.photosDir, { recursive: true });
     await writeFile(src, buffer);
+    return { src: src, localPath: src, buffer };
   }
-  return { src, localPath: src, buffer };
+
+  return { src: null, localPath: null, buffer: null };
 }
 
 async function buildRecord(item, opts) {
@@ -80,7 +80,8 @@ async function buildRecord(item, opts) {
   const gps = exif.gps || item.gps || null;
   const camera = exif.camera || item.camera || null;
   const takenAt = exif.takenAt || item.dateCreated || new Date().toISOString();
-  const parsed = parseCaption(item.caption);
+  // 메타 소스: 파일명 규칙(Drive) 우선, 없으면 캡션(샘플/구버전 호환).
+  const parsed = item.filename ? parseFilename(item.filename) : parseCaption(item.caption || "");
   const tod = timeOfDay(takenAt);
 
   const region = deriveRegion({ gps, regionHint: parsed.regionHint });

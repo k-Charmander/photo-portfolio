@@ -1,5 +1,5 @@
 // 파이프라인 설정 — 경로, 지역/테마 규칙, 해시태그, 스토리 템플릿.
-// 비밀값(앨범 토큰 등)은 여기 두지 않는다. 환경변수 ICLOUD_ALBUM_TOKEN 사용.
+// 비밀값(서비스 계정 키 등)은 여기 두지 않는다. 환경변수 GDRIVE_SA_KEY / GDRIVE_FOLDER_ID 사용.
 
 export const paths = {
   photosDir: "assets/photos",
